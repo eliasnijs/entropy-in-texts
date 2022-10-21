@@ -51,12 +51,6 @@ Othello, the Moore of Venice
 .[
     othello 
 .]
-.LP
-Voordat we beginnen, nog een praktische noot.
-Bij dit verslag hoort een jupyter notebook en een python bestand.
-Men kan deze samen met de teksten, afbeeldingen van de grafieken en enkele scripts terugvinden
-op de volgende link:
-.LINK "https://eliasnijs.xyz/unief/telepract1.zip"
 .NH 1
 Basis Analyse van de teksten
 .LP
