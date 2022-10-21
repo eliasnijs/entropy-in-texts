@@ -1,0 +1,233 @@
+.RP
+.so macros.troff
+.nr figstep 1 1
+.TL
+Entropie in drie Engelse teksten van verschillende genres
+.AU
+Elias Nijs 
+.AI
+Telecommunicatie, Informatica
+Universiteit Gent
+.DA
+.2C
+.R1
+accumulate
+database bib.ref
+.R2
+.EQ
+delim $$
+.EN
+.NH 1
+Introductie
+.LP
+In dit verslag worden de resultaten omtrent het onderzoek in
+verband met entropie voor het vak telecommunicatie
+aan de Universiteit Gent besproken.
+.LP
+In dit onderzoek werden drie teksten geanalyseerd met het oog
+op de hoeveel entropie deze bezitten. Hiervoor werd eerst
+een basis analyse uitgevoerd die de lengte en karater 
+distributies bekijkt. 
+Daarna werd de hoeveel entropie met verschillende hoeveelheden
+geheugen bekeken in elke tekst. Om dit te doen werd een 
+entropie functie geschreven in python.
+Tot slot werd ook bekeken hoe de entropie zich gedraagt 
+na compressie met 7zip.
+.LP
+De drie teksten zijn: 
+.nr step 1 1
+.IP \n[step]. 3
+Genesis
+.[
+    genesis
+.]
+.IP \n+[step]. 3
+The C Programming Language
+.[
+    cproglang
+.]
+.IP \n+[step]. 3
+Othello, the Moore of Venice
+.[
+    othello 
+.]
+.LP
+Voordat we beginnen, nog een praktische noot.
+Bij dit verslag hoort een jupyter notebook en een python bestand.
+Men kan deze samen met de teksten, afbeeldingen van de grafieken en enkele scripts terugvinden
+op de volgende link:
+.LINK "https://eliasnijs.xyz/unief/telepract1.zip"
+.NH 1
+Basis Analyse van de teksten
+.LP
+We beginnen met een basis analyse van de teksten. Hier bekijken we
+de lengtes en karakterdistributies. Daarnaast zullen we ook de karakter distributie van de gemiddelde 
+Engelse tekst vergelijken met degene van de onze teksten.
+
+Helaas was voor de Engelse distributie enkel de distributie van de letters, zonder onderscheid 
+tussen hoofd en kleine letters, te vinden.
+.[
+    english distr
+.]
+Daarom, opdat we een eerlijke vergelijking zouden hebben, werden de teksten
+voor de vergelijking gefiltered op enkel letters.
+.IMG \n[figstep] "./images/english_probs.eps" "Gemiddelde kans per letter in Engels"
+.NH 2
+Lengte
+.LP
+.I "(vraag a)"
+.LP
+We kijken eerst naar de lengten, deze zien er als
+volt uit. Genesis bestaat uit
+.I "207327"
+karakters, The C Programming Language bestaat uit 
+.I "432963"
+karakters en Othello, the Moore of Venice bestaat uit 
+.I "153428"
+karakters.
+.NH 2
+Karakter verdeling
+.LP
+.I "(vraag a)"
+.LP
+Als volgt kijken we naar de karakterverdelingen.
+.IMG \n+[figstep] "./images/genesis_probs.eps" 
+.IMG \n+[figstep] "./images/cproglang_probs.eps" 
+.IMG \n+[figstep] "./images/othello_probs.eps"
+.LP
+We zien dat deze verdelingen heel gelijkaardig zijn ondanks
+dat ze van verschillende genres zijn. We zien bijvoorbeeld 
+dat in elke text het karakter 
+.I "spatie"
+heel vaak voorkomt in vergelijking met andere tekens.
+.NH 2
+Vergelijking met Engels
+.LP
+.I "(vraag b)"
+.LP
+Tot slot vergelijken we de verdelingen van onze 
+teksten met deze van Engels. Zoals eerder vermeld zullen
+we hiervoor onze teksten filteren tot enkel letters en geen
+onderscheid maken tussen hoofd en kleine letters.
+.LP
+Hiervoor zullen we eerst eens elke verdeling naast de verdeling van Engels plaatsen.
+.IMG \n+[figstep] "./images/genesis_eng_probs.eps" 
+.IMG \n+[figstep] "./images/cproglang_eng_probs.eps"
+.IMG \n+[figstep] "./images/othello_eng_probs.eps"
+.IMG \n+[figstep] "./images/together_eng_probs.eps"
+.LP
+We kunen ook het verschil tussen de verdelingen en de verdeling van Engels bekijken.
+.IMG \n+[figstep] "./images/genesis_eng_probs_diff.eps" 
+.IMG \n+[figstep] "./images/cproglang_eng_probs_diff.eps"
+.IMG \n+[figstep] "./images/othello_eng_probs_diff.eps"
+.IMG \n+[figstep] "./images/together_eng_probs_diff.eps"
+Hiervan kunnen we ook de gemiddeldes bekijken.
+Voor Genesis komt dit neer op 
+.I "2.27e-05"
+, voor The C Programming Language op
+.I "2.27e-05"
+en voor Othello op
+.I "2.27e-05".
+Opmerkelijk is dat deze alle drie hetzelfde zijn.
+.NH 2
+Conclussie en vooruitblikken
+.LP
+We zien dat de karakterdistributies in de teksten heel gelijkaardig zijn
+en dat deze ook heel weinig verschillen van de verdeling van Engels. Meer nog,
+wanneer we het gemiddelde verschil beschouwden van de teksten tegenover
+Engels, bleek dit voor alle drie de teksten hetzelfde te zijn.
+.LP
+Vermits de karakterverdelingen van 
+de teksten ook zeer dicht aanleunen bij Engels, vermoeden we dat 
+de entropie van onze teksten ook zeer dicht zal aanleunen bij de gemiddelde
+entropie in een Engelse tekst, dewelke neerkomt op 4.11 (bij geheugen 0).
+.NH 1
+Entropie in de verschillende teksten
+.LP
+Na onze basis analyse gedaan te hebben, bekijken we nu de entropie 
+van de teksten. Voordat we dit kunnen doen, moeten we eerst een programma
+schrijven die deze kan berekenen. 
+.NH 2
+Berekenen van de entropie
+.LP
+Voor het berekenen van de entropie werd een programma geschreven in python met 
+behulp van de python library numpy.
+.LP
+De code hiervoor kan worden teruggevonden in zowel de notebook
+als het uitvoerbare python bestand. 
+.NH 2
+Entropie in de teksten 
+.LP
+.I "(vraag c)"
+.LP
+We beelden nu voor elke tekst de entropie af 
+met een variabel geheugen dat van 0 tot 10 varieert.
+.IMG \n+[figstep] "./images/genesis_entropy.eps"
+.IMG \n+[figstep] "./images/cproglang_entropy.eps"
+.IMG \n+[figstep] "./images/othello_entropy.eps"
+.NH 2
+Bevindingen
+.LP
+.I "(vraag d)"
+.LP
+Het verloop van de entropie van de teksten is zeer gelijkaardig.
+Zoals we al voordien vermoedden hebben de teksten een entropie van
+iets meer dan 4.11 bij een geheugen van 0. We zien ook duidelijk
+dat de entropie daalt naarmate het geheugen groter wordt, meer nog,
+het convergeert naar nul. Als we even ons inbeelden dat we een 
+geheugen van grootte 
+.I "lengte - 1"
+hebben, dan is meteen
+duidelijk dat de hoeveelheid onzekerheid nul is, er is immers 
+maar 1 karakter dat kan volgen. Dit geeft intuitief aan 
+waarom de entropie naar 0 daalt.
+.LP
+.I "(vraag e)"
+.LP
+Om beter de verschillen te kunnen zien tussen de verschillende
+teksten, beelden we de hoeveelheden entropie af op 1 grafiek.
+.IMG \n+[figstep] "./images/together_entropy.eps"
+.LP
+We zien dat de entropie zeer gelijkaardig loopt. Wat opvalt is 
+dat de entropie in 
+.I "Othello"
+het hoogst begint maar daarna veel sneller daalt waardoor
+het bij geheugen tien het laagst staat. 
+De hoge start komt doordat de verdeling van de letters
+meer uniform zijn bij deze tekst dan bij de andere en
+er dus meer onzekerheid is.
+De snelle daling komt vermoedelijk doordat 
+het taalkgebruik in  
+.I "Othello"
+simpeler is en dus bepaalde combinaties
+van letters sneller voorspelbaar worden.
+.NH 1
+Entropie voor en na compressie in de verschillende teksten 
+.LP
+.I "(vraag f)"
+.LP
+Tot slot zou het interessant zijn om de entropie te gaan vergelijken
+met de entropie na compressie. Voor het comprimeren passen we het volgende commando
+toe op onze teksten:
+.CODE "7z a {output}.7z {input}.txt -mx=9"
+.LP
+We zullen nu ook onze teksten moeten inlezen als bytes, zonder
+deze te interpreteren. We moeten dit doen om een eerlijke vergelijking te hebben met de 
+gecomprimeerde teksten.
+
+We krijgen dan volgende resultaten:
+.IMG \n+[figstep] "./images/genesis_compressed_entropy.eps"
+.IMG \n+[figstep] "./images/cproglang_compressed_entropy.eps"
+.IMG \n+[figstep] "./images/othello_compressed_entropy.eps"
+.IMG \n+[figstep] "./images/together_compressed_entropy.eps"
+.LP
+Ook hier zien we terug dat de drie teksten zich zeer gelijkaardig 
+gedragen op het vlak van entropie. Opmerkelijk is dat de entropie met
+geheugen nul van een tekst na compressie telkens op 8 start en pas 
+minder entropie heeft vanaf dat het geheugen de waarde 2 aanneemt.
+.NH 1
+Slotnoot
+.LP
+We kunnen besluiten dat de entropie'en in de drie tekst bestanden
+zich zeer gelijkaardig gedragen. Vermoedelijk gedragen de meeste 
+Engelse teksten zich op deze manier.
